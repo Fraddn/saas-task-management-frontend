@@ -29,7 +29,6 @@ export default function LoginForm() {
 
       router.push("/dashboard");
     } catch (error) {
-      console.error("Login failed:", error);
       setErrorMessage(
         error instanceof Error ? error.message : "Login failed."
       );
@@ -41,16 +40,22 @@ export default function LoginForm() {
   return (
     <form className="space-y-4" onSubmit={handleSubmit}>
       <input
+        type="text"
         placeholder="Company slug"
         value={companySlug}
         onChange={(e) => setCompanySlug(e.target.value)}
+        required
+        autoComplete="organization"
         className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 focus:outline-none"
       />
 
       <input
+        type="email"
         placeholder="Email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
+        required
+        autoComplete="email"
         className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 focus:outline-none"
       />
 
@@ -59,6 +64,8 @@ export default function LoginForm() {
         placeholder="Password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
+        required
+        autoComplete="current-password"
         className="w-full rounded-lg border border-gray-300 px-4 py-3 text-sm text-gray-900 shadow-sm transition placeholder:text-gray-400 focus:border-gray-400 focus:ring-1 focus:ring-gray-400 focus:outline-none"
       />
 

@@ -1,10 +1,12 @@
 import { getToken } from "@/lib/auth/token-storage";
 import { ApiError, type ProblemDetails } from "./errors";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
-if (!API_BASE_URL) {
-  throw new Error("NEXT_PUBLIC_API_BASE_URL is not set.");
+function getApiBaseUrl(): string {
+  const url = process.env.NEXT_PUBLIC_API_BASE_URL;
+  if (!url) {
+    throw new Error("NEXT_PUBLIC_API_BASE_URL is not set.");
+  }
+  return url;
 }
 
 type ApiRequestOptions = {
@@ -19,7 +21,7 @@ export async function apiRequest<T>(
 ): Promise<T> {
   const token = getToken();
 
-  const response = await fetch(`${API_BASE_URL}${path}`, {
+  const response = await fetch(`${getApiBaseUrl()}${path}`, {
     method: options.method ?? "GET",
     credentials: "include",
     headers: {

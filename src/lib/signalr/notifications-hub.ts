@@ -1,16 +1,15 @@
 import * as signalR from "@microsoft/signalr";
 import { getToken } from "@/lib/auth/token-storage";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL;
-
 let connection: signalR.HubConnection | null = null;
 let starting: Promise<void> | null = null;
 
 export function getNotificationsConnection(): signalR.HubConnection {
   if (connection) return connection;
 
+  const apiBaseUrl = process.env.NEXT_PUBLIC_API_BASE_URL;
   connection = new signalR.HubConnectionBuilder()
-    .withUrl(`${API_BASE_URL}/hubs/notifications`, {
+    .withUrl(`${apiBaseUrl}/hubs/notifications`, {
       accessTokenFactory: () => getToken() ?? "",
     })
     .configureLogging(signalR.LogLevel.None)
