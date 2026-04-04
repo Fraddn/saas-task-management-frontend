@@ -23,6 +23,7 @@ export async function apiRequest<T>(
 
   const response = await fetch(`${getApiBaseUrl()}${path}`, {
     method: options.method ?? "GET",
+    credentials: "include",
     headers: {
       "Content-Type": "application/json",
       ...(token ? { Authorization: `Bearer ${token}` } : {}),

@@ -15,15 +15,19 @@ const securityHeaders = [
   },
   {
     key: "Content-Security-Policy",
-    value: [
-      "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-      "style-src 'self' 'unsafe-inline'",
-      `connect-src 'self' ${process.env.NEXT_PUBLIC_API_BASE_URL ?? ""}`,
-      "img-src 'self' data:",
-      "font-src 'self'",
-      "frame-ancestors 'none'",
-    ].join("; "),
+    value: (() => {
+      const apiUrl = process.env.NEXT_PUBLIC_API_BASE_URL ?? "";
+      const wsUrl = apiUrl.replace(/^https:/, "wss:").replace(/^http:/, "ws:");
+      return [
+        "default-src 'self'",
+        "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
+        "style-src 'self' 'unsafe-inline'",
+        `connect-src 'self' ${apiUrl} ${wsUrl}`,
+        "img-src 'self' data:",
+        "font-src 'self'",
+        "frame-ancestors 'none'",
+      ].join("; ");
+    })(),
   },
 ];
 
