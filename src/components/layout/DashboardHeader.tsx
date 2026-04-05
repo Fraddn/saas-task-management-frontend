@@ -9,9 +9,10 @@ export default function DashboardHeader() {
   const router = useRouter();
   const { user, setUnauthenticated } = useAuth();
 
-  const displayName = user
-    ? `${user.firstName} ${user.lastName}`
-    : 'Unknown user';
+  const fullName = [user?.firstName, user?.lastName]
+    .filter((value): value is string => Boolean(value?.trim()))
+    .join(" ");
+  const displayName = fullName || user?.email || "User";
 
   async function handleLogout() {
     await logoutSession();
@@ -26,16 +27,11 @@ export default function DashboardHeader() {
 
         <div className="h-5 w-px bg-gray-200" />
 
-        <div className="flex items-center gap-2">
-          <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-semibold text-white">
-            {user?.firstName?.[0]}{user?.lastName?.[0]}
-          </div>
-          <div className="hidden md:block">
+        <div className="hidden md:block">
             <p className="text-sm font-medium text-gray-900">{displayName}</p>
             {user?.role && (
               <p className="text-xs text-gray-500">{user.role}</p>
             )}
-          </div>
         </div>
 
         <button
