@@ -20,10 +20,8 @@ export default function DashboardHeader() {
   }
 
   return (
-    <div className="flex items-center justify-between">
-      <div />
-
-      <div className="flex items-center gap-3">
+    <div className="flex items-center justify-end">
+      <div className="flex items-center gap-2 sm:gap-3">
         <NotificationBell />
 
         <div className="h-5 w-px bg-gray-200" />
@@ -32,7 +30,7 @@ export default function DashboardHeader() {
           <div className="flex h-8 w-8 items-center justify-center rounded-full bg-gray-900 text-xs font-semibold text-white">
             {user?.firstName?.[0]}{user?.lastName?.[0]}
           </div>
-          <div className="hidden sm:block">
+          <div className="hidden md:block">
             <p className="text-sm font-medium text-gray-900">{displayName}</p>
             {user?.role && (
               <p className="text-xs text-gray-500">{user.role}</p>
@@ -43,9 +41,10 @@ export default function DashboardHeader() {
         <button
           type="button"
           onClick={handleLogout}
-          className="rounded-lg border border-gray-200 px-3.5 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
+          className="rounded-lg border border-gray-200 px-3 py-2 text-sm font-medium text-gray-700 shadow-sm transition hover:bg-gray-50"
         >
-          Logout
+          <span className="hidden sm:inline">Logout</span>
+          <span className="sm:hidden">Out</span>
         </button>
       </div>
     </div>

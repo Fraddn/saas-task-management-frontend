@@ -24,7 +24,7 @@ export default function DashboardSidebar() {
   );
 
   return (
-    <nav aria-label="Dashboard navigation" className="space-y-8">
+    <nav aria-label="Dashboard navigation" className="space-y-6 sm:space-y-8">
       <div>
         <h2 className="text-base font-bold tracking-tight text-gray-900">
           TaskFlow
@@ -32,7 +32,7 @@ export default function DashboardSidebar() {
         <p className="mt-0.5 text-xs text-gray-400">Workspace</p>
       </div>
 
-      <ul className="space-y-1">
+      <ul className="space-y-1.5">
         {visibleItems.map((item) => {
           const isActive = pathname === item.href;
           const isNotif = item.href === "/dashboard/notifications";
